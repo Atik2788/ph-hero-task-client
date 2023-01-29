@@ -94,7 +94,7 @@ const Register = () => {
                     <input className='btn btn-primary w-full mt-3' type="submit" />
 
                 </form>
-                <p className='mt-4 text-md font-semibold text-left mb-6'>Already have an account? <Link className='text-primary' to='/login2'>Login</Link></p>
+                <p className='mt-4 text-md font-semibold text-left mb-6'>Already have an account? <Link className='text-primary' to='/login'>Login</Link></p>
             </div>
         </div>
     );

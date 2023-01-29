@@ -23,44 +23,45 @@ const Table = () => {
     console.log(listOfBilling);
 
     return (
-        <div>
-            <div className="overflow-x-auto">
-  <table className="table w-full">
-    
-    <thead>
-      <tr>
-        <th>Billing Id</th>
-        <th>Full Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Paid Amount</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
+        <div className='px-4 mt-10'>
+          <div>
 
-    <tbody>
+          </div>
 
-        {
-            listOfBilling?.map((listItem) =>
-             (
-              <tr>
-              <td>{listItem.fullName}</td>
-              <td>{listItem.fullName}</td>
-              <td>{listItem.fullName}</td>
-              <td>{listItem.fullName}</td>
-              <td>{listItem.fullName}</td>
-              <td>{listItem.fullName}</td>
+          <div className="overflow-x-auto">
+            <table className="table w-full">
+              
+              <thead className=''>
+                <tr>
+                  <th>Billing Id</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Paid Amount</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
 
-            </tr>
+              <tbody>
 
-             ))}
-      
- 
-    </tbody>
-  </table>
+                  {
+                      listOfBilling?.map((listItem) =>
+                      (
+                        <tr>
+                        <td>{listItem.fullName}</td>
+                        <td>{listItem.fullName}</td>
+                        <td>{listItem.fullName}</td>
+                        <td>{listItem.fullName}</td>
+                        <td>{listItem.fullName}</td>
+                        <td>{listItem.fullName}</td>
 
+                      </tr>
 
-</div>
+                      ))}                
+          
+              </tbody>
+            </table>
+          </div>
 
 
         </div>
