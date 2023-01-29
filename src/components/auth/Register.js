@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [error, setError] = useState('')
@@ -12,6 +12,7 @@ const Register = () => {
 
     const handleSignup = (data) => {
         // console.log(data);
+        setError('')
 
         fetch(`http://localhost:5000/loginEmail?email=${data.email}`)
         .then((res) => res.json())
@@ -19,17 +20,13 @@ const Register = () => {
           console.log(data)
           setError('User Email already exist!! Please use a new email.')
         })
-        .catch(err => postUser(data.name, data.email, data.phone, data.password))
-
-        
-
-        // createUser = (data.email, data.password, data.phone, data.name)
+        .catch(err => postUser(data.name, data.email, data.phone, data.password))        
 
     }
 
     const postUser = (name, email, phone, password) => {
         const user ={name, email, phone, password}
-        fetch("http://localhost:5000/login", {
+        fetch("http://localhost:5000/registration", {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -39,11 +36,19 @@ const Register = () => {
         .then(res =>res.json())
         .then(data =>{
             console.log(data);
-            navigate('/table')
+            getUserToken(email);
         })
+    }
 
-
-
+    const getUserToken = email =>{
+        fetch(`http://localhost:5000/jwt?email=${email}`)
+        .then(res => res.json())
+        .then(data =>{
+            if(data.accessToken){
+                localStorage.setItem('accessToken', data.accessToken)
+                navigate('/')
+            }
+        })
     }
 
 

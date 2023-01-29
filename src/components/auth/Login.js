@@ -20,15 +20,24 @@ const Login = () => {
       fetch(`http://localhost:5000/login?email=${email}&password=${password}`)
         .then((res) => res.json())
         .then(data => {
-          console.log(data)
-          navigate('/table')
+          // console.log(data)
+          getUserToken(data.email)
+          // navigate('/table')
         })
         .catch(err => setError("Please Enter Valid Email and Password"))
-
-
 } 
 
-
+  const getUserToken = email =>{
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+    .then(res => res.json())
+    .then(data =>{
+        if(data.accessToken){
+            localStorage.setItem('accessToken', data.accessToken)
+            navigate('/')
+        }
+    })
+  }
+    
 
   console.log(error);
 
@@ -73,7 +82,7 @@ const Login = () => {
               </div>
             </form>
             <p className="text-center mb-10">
-              New to Admin Panel?{" "}
+              New to Admin Panel?
               <Link to="/register" className="text-primary font-bold">
                 Sign Up
               </Link>
