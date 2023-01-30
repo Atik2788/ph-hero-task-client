@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AddBill from '../Modal/AddBill';
 import EditBill from '../Modal/EditBill';
@@ -9,54 +9,52 @@ import TableBody from './TableBody';
 const Table2 = () => {
 
     const [addBill, setAddBill] = useState(null)
-    // console.log(addBill)
-
+    
     const [page, setPage] = useState(0)
     const [size, setSize] = useState(10)
     const [lists, setLists] = useState([])    
     const [count, setCount] = useState(0)
 
 
+        // search ****************
+        const searchRef = useRef()
+        const [search, setSearch] = useState('')    
+    // console.log(lists)
 
-    const { data = [], refetch, isLoading } = useQuery({
-        queryKey: ['lists'],
+
+    const { data: lists2 = {}, refetch, isLoading } = useQuery({
+        queryKey: ['billingLists'],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/billing-list?search=${search}&page=${page}&size=${size}`, {
               headers:{
+                'content-type': 'application/json',
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
               }
             })
             const data = await res.json()
+
+            console.log(res);
             setCount(data?.count)
-            refetch()
+            // refetch()
             setLists(data?.billingList)
             return data;
         }
     })
 
-    
 
-
-    // const lists = data?.billingList;
-    // const count = data?.count;
+    useEffect (() => {
+        refetch()
+    },[page, search, size, refetch])
 
 
     const pages = Math.ceil(count / size);
 
 
-
-    // search ****************
-    const searchRef = useRef()
-    const [search, setSearch] = useState('')
-    // console.log(search);
-
-    const { handleSubmit, formState: { errors } } = useForm();
+    const { handleSubmit, formState: {errors} } = useForm();
 
     const handleSearch = () =>{
         setSearch(searchRef.current.value)
     }
-
-
 
 
 
@@ -128,9 +126,9 @@ const Table2 = () => {
                     </button>)
                 }
 
-                    <select onChange={event => setSize(event.target.value)}   className='bg-zinc-700 text-white rounded-lg px-2 '>
+                    <select onChange={event => setSize(event.target.value)} defaultValue={'10'}  className='bg-zinc-700 text-white rounded-lg px-2 '>
                         <option value='5'>5</option>
-                        <option value='10' selected>10</option>
+                        <option value='10' >10</option>
                         <option value='15'>15</option>
                         <option value='20'>20</option>
                     </select>   

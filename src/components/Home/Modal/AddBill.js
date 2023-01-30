@@ -15,6 +15,7 @@ const AddBill = ({refetch, setAddBill}) => {
                         email: data.email,
                         phone: data.phone,
                         amount: data.amount,
+                        createTime: new Date().toISOString()
                     }
 
                     fetch('http://localhost:5000/billing-list', {
