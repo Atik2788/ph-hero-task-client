@@ -5,6 +5,7 @@ import Home from "../components/Home/Home";
 import MainSec from "../components/Home/MainSec";
 import Table from "../components/Home/Table/Table";
 import Main from "../components/Main";
+import NotFound from "../NotFound";
 
 export const router = createBrowserRouter([
     {
@@ -32,5 +33,10 @@ export const router = createBrowserRouter([
                 element: <Table></Table>
             }
         ]
+    },
+    {
+        path: '*',
+        element: <NotFound></NotFound>
+
     }
 ])
