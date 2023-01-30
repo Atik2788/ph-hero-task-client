@@ -71,7 +71,9 @@ const AddBill = ({ refetch, setAddBill }) => {
 
                                 <div className="form-control w-full ">
                                     <label className="label"><span className="label-text">Phone</span></label>
-                                    <input type="number"  {...register("phone", { required: "Phone number is required" })} className='input input-bordered w-full ' />
+                                    <input type="number"  {...register("phone", { required: "Phone number is required",
+                                maxLength: { value: 11, message: 'Phone Number must be 11 characters long' },
+                            minLength: { value: 11, message: 'Phone Number must be 11 characters long' } })} className='input input-bordered w-full ' />
                                     {errors.phone && <p className='text-red-600 text-left' role="alert">{errors.phone?.message}</p>}
                                 </div>
 
