@@ -37,7 +37,7 @@ const Table = () => {
     return (
 
 
-      <Table2 ></Table2>
+      <Table2></Table2>
         
     );
 };
