@@ -5,8 +5,6 @@ import Table2 from './Table2';
 const Table = () => {
 
     return (
-
-
       <Table2></Table2>
         
     );

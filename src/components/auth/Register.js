@@ -14,41 +14,41 @@ const Register = () => {
         // console.log(data);
         setError('')
 
-        fetch(`http://localhost:5000/loginEmail?email=${data.email}`)
-        .then((res) => res.json())
-        .then(data => {
-          console.log(data)
-          setError('User Email already exist!! Please use a new email.')
-        })
-        .catch(err => postUser(data.name, data.email, data.phone, data.password))        
+        fetch(`https://table-task-ph-hero-server.vercel.app/loginEmail?email=${data.email}`)
+            .then((res) => res.json())
+            .then(data => {
+                console.log(data)
+                setError('User Email already exist!! Please use a new email.')
+            })
+            .catch(err => postUser(data.name, data.email, data.phone, data.password))
 
     }
 
     const postUser = (name, email, phone, password) => {
-        const user ={name, email, phone, password}
-        fetch("http://localhost:5000/registration", {
+        const user = { name, email, phone, password }
+        fetch("https://table-task-ph-hero-server.vercel.app/registration", {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(user)
         })
-        .then(res =>res.json())
-        .then(data =>{
-            console.log(data);
-            getUserToken(email);
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                getUserToken(email);
+            })
     }
 
-    const getUserToken = email =>{
-        fetch(`http://localhost:5000/jwt?email=${email}`)
-        .then(res => res.json())
-        .then(data =>{
-            if(data.accessToken){
-                localStorage.setItem('accessToken', data.accessToken)
-                navigate('/')
-            }
-        })
+    const getUserToken = email => {
+        fetch(`https://table-task-ph-hero-server.vercel.app/jwt?email=${email}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.accessToken) {
+                    localStorage.setItem('accessToken', data.accessToken)
+                    navigate('/home')
+                }
+            })
     }
 
 
@@ -74,11 +74,11 @@ const Register = () => {
 
                     <div>
                         <label className="label"><span className="label-text">Phone Number</span></label>
-                        <input {...register("phone", { 
+                        <input {...register("phone", {
                             required: "Phone number is required",
-                            maxLength: {value: 11, message: 'Phone Number must be 11 characters long'},
-                            minLength: {value: 11, message: 'Phone Number must be 11 characters long'}
-                      })} type="number" placeholder="Phone Number" className="input input-bordered w-full" />
+                            maxLength: { value: 11, message: 'Phone Number must be 11 characters long' },
+                            minLength: { value: 11, message: 'Phone Number must be 11 characters long' }
+                        })} type="number" placeholder="Phone Number" className="input input-bordered w-full" />
                         {errors.phone && <p className='text-red-600 text-left' role="alert">{errors.phone?.message}</p>}
                     </div>
 
